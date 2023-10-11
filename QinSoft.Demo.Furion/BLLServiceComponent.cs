@@ -7,6 +7,7 @@
         {
             services.AddServices();
             services.AddMappers();
+            services.AddEventBus();
         }
     }
 }
