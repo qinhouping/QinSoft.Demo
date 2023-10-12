@@ -1,20 +1,19 @@
 ﻿using Furion.DependencyInjection;
+using Furion.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace QinSoft.Demo.Furion
 {
     /// <summary>
-    /// Action过滤器
+    /// 日志动作过滤器
     /// </summary>
-    public class LogFilter : IAsyncActionFilter, IScoped
+    public class LogActionFilterAttribute : Attribute, IAsyncActionFilter, IScoped
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            Console.WriteLine("begin");
+            Log.Information($"Action Execution: url{context.HttpContext.Request.Path}");
 
-            var result= await next.Invoke();
-
-            Console.WriteLine("end");
+            await next.Invoke();
         }
     }
 }

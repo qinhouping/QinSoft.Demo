@@ -9,12 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.8.8.44" />
+    <None Remove="application.20231012.log" />
+    <None Remove="sensitive-words.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QinSoft.Demo.BLL\QinSoft.Demo.BLL.csproj" />
-    <ProjectReference Include="..\QinSoft.Demo.Common\QinSoft.Demo.Common.csproj" />
+    <EmbeddedResource Include="sensitive-words.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Furion" Version="4.8.8.44" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.8.8.48" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="swaggersettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

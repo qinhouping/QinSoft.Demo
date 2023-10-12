@@ -12,9 +12,10 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DALExtensions
     {
-        public static void AddRepositories(this IServiceCollection services)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.TryProxyAddSingleton<IProjectRepository, ProjectRepositoryImpl>(typeof(DatabaseContextInterceptor));
+            return services;
         }
     }
 }

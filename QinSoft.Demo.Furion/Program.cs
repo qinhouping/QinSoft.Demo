@@ -3,7 +3,6 @@
 Serve.Run(RunOptions.Default
     .WithArgs(args)
     .AddComponent<ServeServiceComponent>()
-    .AddWebComponent<ApiServiceComponent>()
-    .AddComponent<BLLServiceComponent>()
-    .AddComponent<DALServiceComponent>()
+    .AddComponent<ApiComponent>()
+    .AddComponent<JobComponent>()
     .UseComponent<ServeApplicationComponent>());

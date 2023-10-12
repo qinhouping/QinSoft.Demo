@@ -1,0 +1,32 @@
+{
+  "SpecificationDocumentSettings": {
+    "DocumentTitle": "QinSoft.Demo.Furion",
+    "GroupOpenApiInfos": [
+      {
+        "Group": "Test",
+        "Title": "Test",
+        "Description": "test",
+        "Version": "0.0.1",
+        "TermsOfService": "",
+        "Contact": {
+          "Name": "qinsoft",
+          "Url": "https://github.com/qinhouping/QinSoft.Demo",
+          "Email": "qhp123@outlook.com"
+        }
+      },
+      {
+        "Group": "Swagger",
+        "Title": "Swagger",
+        "Description": "Swagger相关接口",
+        "Version": "0.0.1"
+      }
+    ],
+    "LoginInfo": {
+      "Enabled": false,
+      "CheckUrl": "/api/swagger/check-url",
+      "SubmitUrl": "/api/swagger/url",
+      "UserName": "admin",
+      "Password": "qinsoft.demo"
+    }
+  }
+}

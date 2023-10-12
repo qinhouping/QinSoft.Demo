@@ -1,33 +1,88 @@
-﻿using Furion.FriendlyException;
+﻿using Furion.ConfigurableOptions;
+using Furion.FriendlyException;
+using Furion.JsonSerialization;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QinSoft.Demo.BLL.Services;
-using QinSoft.Demo.Common.Model.Response;
+using System.ComponentModel.DataAnnotations;
 
 namespace QinSoft.Demo.Furion.Services
 {
     /// <summary>
     /// 测试服务
     /// </summary>
+    [ApiDescriptionSettings("Test")]
     [DynamicApiController]
+    [ServiceFilter(typeof(LogActionFilterAttribute))]
     public class TestService
     {
-        private ITestService testService;
-
-        public TestService(ITestService testService)
+        /// <summary>
+        /// 测试Http
+        /// </summary>
+        [HttpGet]
+        public async Task<string> GetHttp()
         {
-            this.testService = testService;
+            var response = await App.GetService<IApiHttp>().IndexAsync();
+            return response;
         }
 
         /// <summary>
-        /// 测试操作
+        /// 测试Config
         /// </summary>
         [HttpGet]
-        [ServiceFilter(typeof(LogFilter))]
-        public List<Project> Get()
+        public string GetConfig()
         {
-            var response = App.GetService<IHttp>().GetBaidu().Result;
-            return testService.GetProjects();
+            return App.Configuration["test"];
         }
+
+        /// <summary>
+        /// 测试Options
+        /// </summary>
+        [HttpGet]
+        public OutResult GetOptions()
+        {
+            return App.GetOptions<TestOptions>().Adapt<OutResult>();
+        }
+
+
+        /// <summary>
+        /// 测试Json
+        /// </summary>
+        [HttpGet]
+        public string GetJson()
+        {
+            return JSON.Serialize(new { Time = DateTime.Now });
+        }
+
+        /// <summary>
+        /// 测试HttpContext
+        /// </summary>
+        [HttpGet]
+        public string GetIp()
+        {
+            return App.HttpContext.GetRemoteIpAddressToIPv4();
+        }
+
+        /// <summary>
+        /// 测试脱敏
+        /// </summary>
+        [HttpGet]
+        public OutResult GetSensitive()
+        {
+            return new OutResult() { AA = "坏人" };
+        }
+    }
+
+    [OptionsSettings("test_opt")]
+    public class TestOptions : IConfigurableOptions
+    {
+        [MapSettings("a")]
+        public string? A { get; set; }
+    }
+
+    public class OutResult
+    {
+        [SensitiveDetection('*')]
+        public string AA { get; set; }
     }
 }

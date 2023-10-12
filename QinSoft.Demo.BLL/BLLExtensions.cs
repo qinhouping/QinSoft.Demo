@@ -13,14 +13,16 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class BLLExtensions
     {
-        public static void AddServices(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.TryProxyAddSingleton<ITestService, TestServiceImpl>(typeof(DatabaseContextInterceptor));
+            return services;
         }
 
-        public static void AddMappers(this IServiceCollection services)
+        public static IServiceCollection AddMappers(this IServiceCollection services)
         {
             services.AddAutoMapper(s => s.AddProfile(typeof(MapperProfile)));
+            return services;
         }
     }
 }

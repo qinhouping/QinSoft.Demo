@@ -4,9 +4,9 @@ namespace QinSoft.Demo.Furion
 {
     [Client("Baidu")]
     [RetryPolicy(3, 1000)]
-    public interface IHttp: IHttpDispatchProxy
+    public interface IApiHttp: IHttpDispatchProxy
     {
         [Get()]
-        Task<string> GetBaidu();
+        Task<string> IndexAsync();
     }
 }
