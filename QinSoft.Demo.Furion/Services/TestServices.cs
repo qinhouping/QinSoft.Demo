@@ -1,9 +1,12 @@
 ﻿using Furion.ConfigurableOptions;
 using Furion.FriendlyException;
 using Furion.JsonSerialization;
+using Furion.Schedule;
+using Furion.TimeCrontab;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QinSoft.Demo.Furion.Jobs;
 using System.ComponentModel.DataAnnotations;
 
 namespace QinSoft.Demo.Furion.Services
@@ -70,6 +73,50 @@ namespace QinSoft.Demo.Furion.Services
         public OutResult GetSensitive()
         {
             return new OutResult() { AA = "坏人" };
+        }
+
+        /// <summary>
+        /// 测试作业调度
+        /// </summary>
+        [HttpGet]
+        public bool AddJob()
+        {
+            App.GetService<ISchedulerFactory>().AddJob<TestJob>("test-job", false, Triggers.Secondly());
+            return true;
+        }
+
+        /// <summary>
+        /// 测试作业调度HTTP
+        /// </summary>
+        [HttpGet]
+        public bool AddHttpJob()
+        {
+            App.GetService<ISchedulerFactory>().AddHttpJob(request =>
+            {
+                request.RequestUri = "https://www.baidu.com";
+                request.HttpMethod = HttpMethod.Get;
+            }, "test-http-job", false, Triggers.Cron("* * * * * ?", CronStringFormat.WithSeconds));
+            return true;
+        }
+
+        /// <summary>
+        /// 测试作业调度
+        /// </summary>
+        [HttpDelete]
+        public bool RemoveJob()
+        {
+            App.GetService<ISchedulerFactory>().RemoveJob("test-job");
+            return true;
+        }
+
+        /// <summary>
+        /// 测试作业调度HTTP
+        /// </summary>
+        [HttpDelete]
+        public bool RemoveHttpJob()
+        {
+            App.GetService<ISchedulerFactory>().RemoveJob("test-http-job");
+            return true;
         }
     }
 

@@ -12,7 +12,7 @@ namespace QinSoft.Demo.Furion
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<>();
+          
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using QinSoft.Demo.Furion.Jobs;
+﻿using Furion.Schedule;
+using QinSoft.Demo.Furion.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace QinSoft.Demo.Furion
         {
             services.AddHostedService<Worker>();
             services.AddHostedService<Worker2>();
+
+            services.AddSchedule();
         }
     }
 }
