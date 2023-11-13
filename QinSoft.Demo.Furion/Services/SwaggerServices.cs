@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QinSoft.Demo.Furion.Services
 {
-    [ApiDescriptionSettings("Swagger")]
+    [ApiDescriptionSettings("2Swagger")]
     [DynamicApiController]
     [AllowAnonymous]
     public class SwaggerServices

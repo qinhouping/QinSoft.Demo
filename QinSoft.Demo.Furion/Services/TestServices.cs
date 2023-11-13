@@ -14,7 +14,7 @@ namespace QinSoft.Demo.Furion.Services
     /// <summary>
     /// 测试服务
     /// </summary>
-    [ApiDescriptionSettings("Test")]
+    [ApiDescriptionSettings("1Test")]
     [DynamicApiController]
     [ServiceFilter(typeof(LogActionFilterAttribute))]
     public class TestService

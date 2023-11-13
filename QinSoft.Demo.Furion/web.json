@@ -1,0 +1,8 @@
+{
+  "DynamicApiControllerSettings": {
+    "CamelCaseSeparator": "/",
+    "DefaultRoutePrefix": "",
+    "AbandonControllerAffixes":["Controller","Api"]
+  }
+}
+
