@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QinSoft.Demo.Furion.Jobs;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace QinSoft.Demo.Furion.Services
 {
@@ -117,6 +118,19 @@ namespace QinSoft.Demo.Furion.Services
         {
             App.GetService<ISchedulerFactory>().RemoveJob("test-http-job");
             return true;
+        }
+
+        /// <summary>
+        /// 测试序列化
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public object TestSer(IJsonSerializerProvider jsonSerializer)
+        {
+            object a = "hello";
+            string b = JSON.Serialize(a);
+            object c = JSON.Deserialize<object>(b);
+            return c;
         }
     }
 

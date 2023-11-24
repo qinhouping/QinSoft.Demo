@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using QinSoft.Demo.BLL.Services;
 using QinSoft.Demo.Common.Model.Response;
 using SqlSugar;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace QinSoft.Demo.Api.Controllers
 {
@@ -21,6 +23,15 @@ namespace QinSoft.Demo.Api.Controllers
         public List<Project> Get()
         {
             return testService.GetProjects();
+        }
+
+        [HttpGet("test2")]
+        public object Test2()
+        {
+            object a = DateTime.Now;
+            string b = JsonSerializer.Serialize(a);
+            object c = JsonSerializer.Deserialize<object>(b);
+            return c;
         }
     }
 }
