@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QinSoft.Demo.BLL.Services;
 using QinSoft.Demo.Common.Model.Response;
@@ -8,8 +9,8 @@ using System.Text.Json.Serialization;
 
 namespace QinSoft.Demo.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
     public class TestController : ControllerBase
     {
         private ITestService testService;
@@ -25,13 +26,23 @@ namespace QinSoft.Demo.Api.Controllers
             return testService.GetProjects();
         }
 
-        [HttpGet("test2")]
-        public object Test2()
+        /// <summary>
+        /// 测试
+        /// </summary>
+        [HttpPost]
+        [Authorize("test", Roles = "Admin")]
+        public Project TestMethod([FromBody] Project project)
         {
-            object a = DateTime.Now;
-            string b = JsonSerializer.Serialize(a);
-            object c = JsonSerializer.Deserialize<object>(b);
-            return c;
+            return project;
+        }
+
+        /// <summary>
+        /// 测试异常
+        /// </summary>
+        [HttpGet]
+        public Project TestExceptionMethod()
+        {
+            throw new InvalidProgramException();
         }
     }
 }

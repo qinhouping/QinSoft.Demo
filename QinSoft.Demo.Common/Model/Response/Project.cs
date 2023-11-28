@@ -12,8 +12,8 @@ namespace QinSoft.Demo.Common.Model.Response
 
         public string ProjectDescription { get; set; }
 
-        public DateTime? CreateTime { get; set; }
+        public DateTimeOffset? CreateTime { get; set; }
 
-        public DateTime? UpdateTime { get; set; }
+        public DateTimeOffset? UpdateTime { get; set; }
     }
 }
